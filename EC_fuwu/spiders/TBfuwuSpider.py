@@ -1,7 +1,7 @@
 import scrapy
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.lxmlhtml import LxmlLinkExtractor
-from tutorial.items import FuwuPurchaseItem,FuwuISVItem
+from ..items import FuwuPurchaseItem,FuwuISVItem
 from scrapy.http import Request
 #import json
 import jsondatetime as json
