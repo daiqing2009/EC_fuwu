@@ -1,4 +1,5 @@
 import scrapy
+from scrapy import log
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.lxmlhtml import LxmlLinkExtractor
 from ..items import FuwuPurchaseItem,FuwuISVItem
