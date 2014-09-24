@@ -6,12 +6,17 @@ from sqlalchemy.orm import sessionmaker
 from datetime import datetime,date,timedelta
 from sqlalchemy.sql import func
 import settings
+
   
 DeclarativeBase = declarative_base()
   
 def db_connect():
-    return create_engine(URL(**settings.DB_MYSQL))
-#    return create_engine(URL(**settings.DB_SQLITE))
+    if settings.ENV == 'QA':
+        return create_engine(URL(**settings.QA_DB_MYSQL))
+    elif settings.ENV == 'DEBUG':
+        return create_engine(URL(**settings.DEBUG_DB_MYSQL))
+    else: 
+        return create_engine(URL(**settings.DB_SQLITE))
   
 def create_tables(engine):
     DeclarativeBase.metadata.create_all(engine)

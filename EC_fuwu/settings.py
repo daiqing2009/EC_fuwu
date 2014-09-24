@@ -19,7 +19,22 @@ AUTOTHROTTLE_ENABLED = True
 
 DNSCACHE_ENABLED = True
 
-DB_MYSQL = {'drivername': 'mysql+mysqlconnector',
+ITEM_PIPELINES = {
+    'EC_fuwu.pipelines.RdbPipeline':300
+}
+
+#################Environment Dependent Variables ######################
+ENV = 'DEBUG'
+
+#QA machine is linux, use mysqldb instead
+QA_DB_MYSQL = {'drivername': 'mysql+mysqldb',
+            'username': 'ec_fuwu',
+            'password': '',
+            'host':     'ec4fuwu2014.mysql.rds.aliyuncs.com',
+            'database': 'ec_fuwu'}
+
+#debug in 64bit windows, mysqlconnector is more proper
+DEBUG_DB_MYSQL = {'drivername': 'mysql+mysqlconnector',
             'username': 'ec_fuwu',
             'password': 'abcd1234',
             'host':     'localhost',
@@ -28,8 +43,6 @@ DB_MYSQL = {'drivername': 'mysql+mysqlconnector',
 DB_SQLITE = {'drivername': 'sqlite',
             'database': 'foo.db'}
 
-ITEM_PIPELINES = {
-    'EC_fuwu.pipelines.RdbPipeline':300
-}
+
 
 #AJAXCRAWL_ENABLED = True
