@@ -6,6 +6,7 @@ from items import FuwuISVItem,FuwuPurchaseItem
 from spiders import TBfuwuSpider 
 from sqlalchemy import and_
 
+from scrapy import log
 # Define your item pipelines here
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
@@ -38,13 +39,14 @@ class RdbPipeline(object):
                 fuwuISV = FuwuISV(**fuwuISVItem)
             elif type(item) is FuwuISVItem:
                 fuwuISV = FuwuISV(**item)
-            
-            print  "fuwuISV .name= %s " % fuwuISV.name
+                log.msg("fuwuISV .name= %s " % fuwuISV.name, level=log.DEBUG)
+            #print  "fuwuISV .name= %s " % fuwuISV.name
             #make sure fuwuISV is unique       
             try:
                 fuwuISV = session.query(FuwuISV).\
                     filter(FuwuISV.name==fuwuISV.name).one()
-                print " fuwuISV found in record .id= %d" % fuwuISV.id
+                log.msg("fuwuISV found in record .id= %d" % fuwuISV.id, level=log.DEBUG)
+                #print " fuwuISV found in record .id= %d" % fuwuISV.id
             except NoResultFound, e:
                 print e                
                 session.merge(fuwuISV) 
