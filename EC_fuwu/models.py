@@ -12,11 +12,11 @@ DeclarativeBase = declarative_base()
   
 def db_connect():
     if settings.ENV == 'QA':
-        return create_engine(URL(**settings.QA_DB_MYSQL))
+        return create_engine(URL(**settings.QA_DB_MYSQL),connect_args={'charset':'utf8'})
     elif settings.ENV == 'DEBUG':
-        return create_engine(URL(**settings.DEBUG_DB_MYSQL))
+        return create_engine(URL(**settings.DEBUG_DB_MYSQL),connect_args={'charset':'utf8'})
     else: 
-        return create_engine(URL(**settings.DB_SQLITE))
+        return create_engine(URL(**settings.DB_SQLITE),connect_args={'charset':'utf8'})
   
 def create_tables(engine):
     DeclarativeBase.metadata.create_all(engine)
