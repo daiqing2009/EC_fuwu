@@ -29,7 +29,7 @@ ENV = 'DEBUG'
 #QA machine is linux, use mysqldb instead
 QA_DB_MYSQL = {'drivername': 'mysql+mysqldb',
             'username': 'ec_fuwu',
-            'password': '${qa.mysql.password}',
+            'password': '{{qa.mysql.password}}',
             'host':     'ec4fuwu2014.mysql.rds.aliyuncs.com',
             'database': 'ec_fuwu'}
 
