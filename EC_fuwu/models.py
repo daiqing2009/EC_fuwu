@@ -62,11 +62,13 @@ class FuwuISV(DeclarativeBase):
             else:
                 return False
         else:
+            self.bePurchased.append(purchase)
             return True
         
     def markLastPurchase(self):
         lastPurchaseTime = self.bePurchased[-1].purchaseTime
         log.msg("lastPurchaseTime .type= %s " % lastPurchaseTime.__class__, level=log.DEBUG)
+        log.msg("self.bePurchased[-1] .type= %s " % self.bePurchased[-1].__class__, level=log.DEBUG)
         log.msg("self.purchaseTimeLastMarked .type= %s " % self.purchaseTimeLastMarked.__class__, level=log.DEBUG)
         if self.purchaseTimeLastMarked is None or self.purchaseTimeLastMarked < lastPurchaseTime:
                 self.purchaseTimeLastMarked = lastPurchaseTime
