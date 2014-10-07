@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from datetime import datetime,date,timedelta
 from sqlalchemy.sql import func
 import settings
-
+from scrapy import log
   
 DeclarativeBase = declarative_base()
   
@@ -52,15 +52,20 @@ class FuwuISV(DeclarativeBase):
     
     #check if certain purchase should be appended to bePurchased
     def logPurchase(self, purchase):
-        if(self.purchaseTimeLastMarked is None or self.purchaseTimeLastMarked<purchase.purchaseTime):
-            self.bePurchased.append(purchase)
-#            self.latestPurchaseTime = purchase.purchaseTime
-            return True
+        if(self.purchaseTimeLastMarked is not None):
+            log.msg("purchaseTimeLastMarked .type= %s " % self.purchaseTimeLastMarked.__class__, level=log.DEBUG)
+            log.msg("purchase.purchaseTime .type= %s " % purchase.purchaseTime.__class__, level=log.DEBUG)
+            if(self.purchaseTimeLastMarked<purchase.purchaseTime):
+                self.bePurchased.append(purchase)
+                return True
+            else:
+                return False
         else:
-            return False
+            return True
         
     def markLastPurchase(self):
         lastPurchaseTime = self.bePurchased[-1].purchaseTime
+        log.msg("lastPurchaseTime .type= %s " % lastPurchaseTime.__class__, level=log.DEBUG)
         if self.purchaseTimeLastMarked is None or self.purchaseTimeLastMarked < lastPurchaseTime:
                 self.purchaseTimeLastMarked = lastPurchaseTime
              
