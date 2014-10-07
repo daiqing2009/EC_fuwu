@@ -54,9 +54,9 @@ class RdbPipeline(object):
                       
             if type(item) is FuwuPurchaseItem:
                 #link purchase info into ISV            
-                purchase = FuwuPurchase(**item)                
-                if fuwuISV.logPurchase(purchase):            
-                    session.add(purchase)
+                fuwuPurchase = FuwuPurchase(**item)                
+                if fuwuISV.logPurchase(fuwuPurchase):            
+                    session.add(fuwuPurchase)
      
             session.commit()
 #            print "new fuwuISV.id= %d" % fuwuISV.id

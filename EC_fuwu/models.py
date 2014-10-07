@@ -54,6 +54,7 @@ class FuwuISV(DeclarativeBase):
     def logPurchase(self, purchase):
         if(self.purchaseTimeLastMarked is not None):
             log.msg("purchaseTimeLastMarked .type= %s " % self.purchaseTimeLastMarked.__class__, level=log.DEBUG)
+            log.msg("purchase .type= %s " % purchase.__class__, level=log.DEBUG)
             log.msg("purchase.purchaseTime .type= %s " % purchase.purchaseTime.__class__, level=log.DEBUG)
             if(self.purchaseTimeLastMarked<purchase.purchaseTime):
                 self.bePurchased.append(purchase)
@@ -66,6 +67,7 @@ class FuwuISV(DeclarativeBase):
     def markLastPurchase(self):
         lastPurchaseTime = self.bePurchased[-1].purchaseTime
         log.msg("lastPurchaseTime .type= %s " % lastPurchaseTime.__class__, level=log.DEBUG)
+        log.msg("self.purchaseTimeLastMarked .type= %s " % self.purchaseTimeLastMarked.__class__, level=log.DEBUG)
         if self.purchaseTimeLastMarked is None or self.purchaseTimeLastMarked < lastPurchaseTime:
                 self.purchaseTimeLastMarked = lastPurchaseTime
              
